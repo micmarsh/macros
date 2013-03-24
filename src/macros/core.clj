@@ -7,6 +7,6 @@
   (println x "Hello, World!"))
 
 (defn -main [& args]
-    (defntest poo {[1 2] 3} [x y] (+ x y))
+    (defntest poo {[1 2] 3} [x y] (+ x y 4))
     (println (poo 4 9)))
 
