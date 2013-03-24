@@ -1,6 +1,6 @@
 # macros
 
-Some clojure macros, so just just "defntest"
+Some clojure macros, so far just "defntest"
 
 ## Usage
 
