@@ -7,7 +7,6 @@
             (if-not (empty? allkeys)
                 (let [input (first allkeys)
                      expected-value (tests input)]
-                     (println input)
                      (if (not= expected-value (apply result-fn input))
                         (throw (Exception. (str "Test Case Failed:\n"
                             "arugments " (seq input) " don't produce "
