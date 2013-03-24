@@ -4,7 +4,13 @@
     (let [  [tests, args]
                 (if (map? first) [first, second] [second, first])
             result `(fn [~@args] ~@body)]
-        (println tests)
-        (println args)
+        (loop [allkeys (keys tests)]
+            (if (not= '() allkeys)
+                (let [input (first allkeys)
+                     expected-value (input tests)]
+                     (if (not= expected-value (apply ~result input))
+                        (throw (Exception. (str "Test Exception:\n"
+                            input " doesn't produce " expected-value))))))
+            (recur (rest allkeys)))
         `(def ~name ~result)))
     ;`(defn ~name [~@args] ~@body)))
