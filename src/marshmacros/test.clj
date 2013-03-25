@@ -22,8 +22,40 @@
 (defn- get-tests-and-args [first, second]
     (if (map? first) [first, second] [second, first]))
 
-(defmacro defntest [name  first second & body]
-    (let [  [tests args] (get-tests-and-args first second)
+
+(defn- get-keyword [item]
+    (cond
+        (string? item)
+            :docs
+        (vector? item)
+            :args
+        (map? item)
+            :tests
+        :else
+            :body))
+
+(defn- classify-args [args]
+    (reduce (fn [acc, item]
+        (assoc acc (get-keyword item) item))
+    {}
+    args))
+
+(defn- process-args [args]
+    let[{body :body tests :tests
+         args :args docs :docs} (classify-args (take 3 args))]
+        [tests, args, (or docs "")
+            (cons body (drop 3 args))])
+
+
+(defmacro defntest [name, & arguments]
+    (let [  [tests args docs body] (process-args arguments)
             result-symbol `(fn [~@args] ~@body) ]
         (loop-through-tests! (eval result-symbol) tests)
-        `(def ~name ~result-symbol)))
+        `(defn ~name ~docs [~@args] ~@body)))
+
+;how to add docs to defntest functions:
+;   get-tests-and-args has to go. Instead process an instance of '& args'
+;   extract first, second, and third (or a 'take 3') (and '& rest') with some let action
+;
+;
+;

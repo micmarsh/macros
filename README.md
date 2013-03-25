@@ -14,7 +14,7 @@ Some clojure macros, so far just "defntest"
 ; defines 'add', and runs given test cases, throwing an exception if one doesn't pass
 ```
 ##TODO
-* Make defntest macro much less ugly, much more modular (since it's mostly a function)
+* Allow doc strings in addition to tests and arguments
 * Support for '[& args]' form in functions definitions
 * Arbitrary ordering of arguments vector and test map relative to one another
 * Defining single arguments in test map (use a 'seq?' check)
