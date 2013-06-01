@@ -64,6 +64,6 @@
         `(defn ~name ~docs [~@args] ~@body)))
 
 (defmacro fntest [args, tests, body]
-    (let [result-symbol `(fn [~@args] ~@body)]
-        (loop-through-tests!(eval result-symbol) tests)
+    (let [result-symbol `(fn [~@args] (~@body))]
+        (loop-through-tests! (eval result-symbol) tests)
         result-symbol))

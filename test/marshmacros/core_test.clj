@@ -6,7 +6,7 @@
 
 (def add-two-things-anon
   (fntest [one two]
-    {[1 2] 3 [10 9] 19} (+ one two)))
+    {[1 5] 6 [10 9] 19} (+ one two)))
 ;TODO: this shit's not passing for seem reason! need to go into fntest
 ;to see what's going on. After that, can make a hot closure for construting
 ;the map in either {:key val} or {val (technically symbol) :key} order.
