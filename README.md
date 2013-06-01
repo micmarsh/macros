@@ -15,7 +15,7 @@ Some clojure macros, so far just "defntest"
 ; defines 'add', and runs given test cases, throwing an exception if one doesn't pass
 ```
 ### coffee-script inspired macros: cofmap and cdestruct
-In (coffeescript)[http://www.coffeescript.org]  (and JavaScript in es6) you can do this:
+In [coffeescript](http://www.coffeescript.org)  (and JavaScript in es6) you can do this:
 ```coffeescript
 food = "turkey"
 drink = "water"
@@ -30,7 +30,7 @@ This is super useful, so I wrote "cofmap" to do the same thing in clojure:
 (def the-map (cofmap author book))
 ;(= the-map {:author author :book book})
 ```
-Also, I made cdestruct, inspired by (coffee's destructuring assignment)[http://coffeescript.org/#destructuring] before I realized that {:keys [...]} was a thing. Here it goes:
+Also, I made cdestruct, inspired by [coffee's destructuring assignment](http://coffeescript.org/#destructuring) before I realized that {:keys [...]} was a thing. Here it goes:
 ```clojure
 ;writing this:
 (cdestruct [(name book) the-map
