@@ -26,19 +26,28 @@
 
 (def x "lulz")
 (def y {:for-the x})
+(def fb {:foo "you" :bar "me"})
 
-(deftest empty-map
+(deftest coffee-map
   (testing "Apply macro with no arguments generates an empty map"
-    (is (= (cofmap) {}))))
-
-(deftest simple-map
+    (is (= (cofmap) {})))
   (testing "A two element map works as expected"
     (is (= (cofmap y x) {:y {:for-the "lulz"} :x "lulz"}))))
 
 (deftest destructuring
   (testing "cdestruct destructures a single-key map as expected"
     (cdestruct [(for-the) y]
-      (is (= for-the "lulz")))))
+      (is (= for-the "lulz"))))
+  (testing "cdestruct can destructure based on lists and leave other things alone"
+    (cdestruct [(foo bar) fb
+                us (str foo " and " bar)]
+                (is (= foo "you"))
+                (is (= us "you and me"))))
+  (testing "cdestruct is basically the same thing as {:keys ...}"
+    (cdestruct [(bar) fb
+                {:keys [foo]} fb]
+                (is (= foo "you"))
+                (is (= bar "me")))))
 
 
 ;TODO: make a 'cdestruct' macro to replace "let" and allow for coffee-style

@@ -4,6 +4,7 @@ Some clojure macros, so far just "defntest"
 
 ## Usage
 
+### defntest
 ```clojure
 (defntest addThreeThings
     {[1 2 3] 6
@@ -13,6 +14,23 @@ Some clojure macros, so far just "defntest"
      (+ x y z))
 ; defines 'add', and runs given test cases, throwing an exception if one doesn't pass
 ```
+### coffee-script inspired macros: cofmap and cdestruct
+In coffeescript (probably my other favorite language) you can do this:
+```coffeescript
+food = "turkey"
+drink = "water"
+exercise = "squats"
+hashMap = {food, drink, exercise}
+#hashMap is {food: food, drink: drink, exercise: exercise}
+```
+This is super useful, so I wrote "cofmap" to do the same thing in clojure:
+```clojure
+(def author "Stephen Covey")
+(def book "7 Habits")
+(def the-map (cofmap author book))
+;(= the-map {:author author :book book})
+```
+
 ##TODO
 * Allow doc strings in addition to tests and arguments
 * Support for '[& args]' form in functions definitions
