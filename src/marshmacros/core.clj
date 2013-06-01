@@ -3,13 +3,14 @@
 
 
 (defn -main [& args]
+    "docs"
     (defntest woot [thing]
         { [3] "woot 3"
          ["yeah"] "woot yeah"}
-        "this function is wootastic"
-        (println "woah fancy function body")
-        (str "woot " thing ))
-    (println (woot 4))
+         "this function is wootastic"
+         (println "woah fancy function body")
+         (str "woot " thing ))
+    (println (woot 5))
     (defntest addThreeThings [x y z]
         "Adds three numbers together"
         {[1 2 3] 6

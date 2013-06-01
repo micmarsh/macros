@@ -19,6 +19,8 @@ Some clojure macros, so far just "defntest"
 * Arbitrary ordering of arguments vector and test map relative to one another
 * Defining single arguments in test map (use a 'seq?' check)
 * Allow pre-evalution input and results in maps (probably related to how macros work in general)
+* 'or' results for random functions
+
 * Support for multi-arity functions
 
 

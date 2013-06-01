@@ -40,22 +40,23 @@
     {}
     args))
 
-(defn- process-args [args]
-    let[{body :body tests :tests
-         args :args docs :docs} (classify-args (take 3 args))]
+(defn- build-body
+    "re-assembles the body of the intended function"
+    [body macro-args]
+       (if-not (nil? body)
+            (cons body (drop 3 macro-args))
+            (drop 2 macro-args)))
+
+(defn- process-args [macro-args]
+    (let[{body :body tests :tests
+         args :args docs :docs} (classify-args (take 3 macro-args))]
         [tests, args, (or docs "")
-            (cons body (drop 3 args))])
+           (build-body body macro-args)]))
 
 
 (defmacro defntest [name, & arguments]
     (let [  [tests args docs body] (process-args arguments)
             result-symbol `(fn [~@args] ~@body) ]
+        (println "args: " args "body: " body)
         (loop-through-tests! (eval result-symbol) tests)
         `(defn ~name ~docs [~@args] ~@body)))
-
-;how to add docs to defntest functions:
-;   get-tests-and-args has to go. Instead process an instance of '& args'
-;   extract first, second, and third (or a 'take 3') (and '& rest') with some let action
-;
-;
-;
