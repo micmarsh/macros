@@ -9,5 +9,5 @@
          [3 1 4] 8
          [0 6 7] 13}
         (+ x y z))
-    (println (addThreeThings 1 2 6)))
+    (println (addThreeThings 1 2 6) ))
 
