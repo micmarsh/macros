@@ -1,5 +1,5 @@
 (ns marshmacros.coffee
-    :use [marshmacros.test :only [defntest]])
+    (:use [marshmacros.test :only [defntest]]))
 
 (def fruit "apples")
 (def meat {:name "beef" :types ["ground", "grass-fed"]})
