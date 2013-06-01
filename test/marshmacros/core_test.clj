@@ -35,3 +35,5 @@
   (testing "A two element map works as expected"
     (is (= (cofmap y x) {:y {:for-the "lulz"} :x "lulz"}))))
 
+;TODO: make a 'cdestruct' macro to replace "let" and allow for coffee-style
+;destructuring of maps
