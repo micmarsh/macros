@@ -20,6 +20,7 @@
                  (recur (rest allkeys))))))
 
 (defn- get-tests-and-args [first, second]
+    "Orders tests first, then arguments to the function second"
     (if (map? first) [first, second] [second, first]))
 
 
@@ -57,6 +58,5 @@
 (defmacro defntest [name, & arguments]
     (let [  [tests args docs body] (process-args arguments)
             result-symbol `(fn [~@args] ~@body) ]
-        (println "args: " args "body: " body)
         (loop-through-tests! (eval result-symbol) tests)
         `(defn ~name ~docs [~@args] ~@body)))
