@@ -15,7 +15,7 @@ Some clojure macros, so far just "defntest"
 ; defines 'add', and runs given test cases, throwing an exception if one doesn't pass
 ```
 ### coffee-script inspired macros: cofmap and cdestruct
-In coffeescript (probably my other favorite language) you can do this:
+In (coffeescript)[http://www.coffeescript.org]  (and JavaScript in es6) you can do this:
 ```coffeescript
 food = "turkey"
 drink = "water"
@@ -30,17 +30,32 @@ This is super useful, so I wrote "cofmap" to do the same thing in clojure:
 (def the-map (cofmap author book))
 ;(= the-map {:author author :book book})
 ```
+Also, I made cdestruct, inspired by (coffee's destructuring assignment)[http://coffeescript.org/#destructuring] before I realized that {:keys [...]} was a thing. Here it goes:
+```clojure
+;writing this:
+(cdestruct [(name book) the-map
+            A_CONSTANT "sup"]
+    (= name "Stephen Covey")
+    (= book "7 Habits")
+    (= A_CONSTANT "sup"))
+;is equivalent to:
+(let [{:keys [name book]} the-map
+      A_CONSTANT "sup"]
+    (= name "Stephen Covey")
+    (= book "7 Habits")
+    (= A_CONSTANT "sup"))
+```
+cdestruct is only marginally as useful as I thought it would be when I wrote it, but it was fun writing anyway
 
 ##TODO
-* Allow doc strings in addition to tests and arguments
+### defntest
+* a "defntest-" form for private functions with a namespace
 * Support for '[& args]' form in functions definitions
 * Arbitrary ordering of arguments vector and test map relative to one another
 * Defining single arguments in test map (use a 'seq?' check)
 * Allow pre-evalution input and results in maps (probably related to how macros work in general)
 * 'or' results for random functions
-
-* Support for multi-arity functions
-
+* Ability to define multi-arity functions
 
 ## License
 
