@@ -2,14 +2,16 @@
 
 ;to abstract more: fn
 
-(defn- throw-exception! [args, result]
+(defn- throw-exception! [args, expected-result, actual-result]
     (throw (Exception. (str "Test Case Failed:\n"
         "arguments " args " don't produce "
-        " result " result \newline))))
+        " result " expected-result \newline
+        "Produced " actual-result " instead"))))
 
 (defn- test-and-throw! [fn-to-apply, input, expected-value]
-    (if (not= expected-value (apply fn-to-apply input))
-        (throw-exception! (seq input) expected-value)))
+    (let [actual-result  (apply fn-to-apply input)]
+        (if (not= expected-value actual-result)
+            (throw-exception! (seq input), expected-value, actual-result))))
 
 (defn- loop-through-tests! [fn-to-apply, tests]
     (loop [allkeys (keys tests)]
@@ -60,3 +62,8 @@
             result-symbol `(fn [~@args] ~@body) ]
         (loop-through-tests! (eval result-symbol) tests)
         `(defn ~name ~docs [~@args] ~@body)))
+
+(defmacro fntest [args, tests, body]
+    (let [result-symbol `(fn [~@args] ~@body)]
+        (loop-through-tests!(eval result-symbol) tests)
+        result-symbol))
