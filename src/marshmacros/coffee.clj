@@ -17,7 +17,9 @@
                 (if reverse-order map-key map-val)))))
 
 (defmacro cofmap [& symbols]
- (reduce (add-to-map-closure false) {} symbols))
+    (reduce (add-to-map-closure false) {} symbols))
 
+(defmacro dcmap [& symbols]
+    (reduce (add-to-map-closure true) {} symbols))
 
 ;(defmacro dcofmap [& symbols])

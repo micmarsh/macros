@@ -2,13 +2,11 @@
   (:use clojure.test
         marshmacros.core
         [marshmacros.test :only [defntest, fntest]]
-        [marshmacros.coffee :only [cofmap]]))
+        [marshmacros.coffee :only [cofmap, dcmap]]))
 
 (def add-two-things-anon
   (fntest [one two]
     {[1 5] 6 [10 9] 19} (+ one two)))
-;TODO: Make a hot closure for constructing
-;the map in either {:key val} or {val (technically symbol) :key} order.
 
 ;Then can get back to planning and implementing state for hotkeys!
 
@@ -36,3 +34,4 @@
 (deftest simple-map
   (testing "A two element map works as expected"
     (is (= (cofmap y x) {:y {:for-the "lulz"} :x "lulz"}))))
+
