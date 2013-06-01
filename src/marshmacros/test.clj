@@ -63,9 +63,7 @@
         (loop-through-tests! (eval result-symbol) tests)
         `(defn ~name ~docs [~@args] ~@body)))
 
-(defmacro fntest [args, tests, body]
-    (let [result-symbol `(fn [~@args] (~@body))] ;TODO: this is no good, look at how
-                                                ; build-body works and kind of replicate
-                                                ; and improve it for general use
+(defmacro fntest [args, tests & body]
+    (let [result-symbol `(fn [~@args] ~@body)]
         (loop-through-tests! (eval result-symbol) tests)
         result-symbol))

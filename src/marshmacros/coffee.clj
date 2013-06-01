@@ -19,22 +19,34 @@
 (defmacro cofmap [& symbols]
     (reduce (add-to-map-closure false) {} symbols))
 
-(defmacro dcmap [& symbols]
+(defn- destructure-map [symbols]
+
     (reduce (add-to-map-closure true) {} symbols))
 
+(defn- check-type-and-convert [item]
+    (if (list? item)
+            (destructure-map item)
+        ;else
+            item))
+
 (defn- convert-item [i, item]
-    ());TODO this: check index first, return item if odd? (<- this exists)
-        ; then go to other function that checks type (you're *probably* looking for
-        ; list) and convert to map according to dcmap
+    (if (odd? i)
+            item
+        ;else
+            (check-type-and-convert item)))
 
 
-(defn- convert-lists [let-vector]
-    (vec (map-indexed current-symbol let-vector)))
+(defntest convert-lists [let-vector]
+    {[[(fruit drink) bar sym0 foo]]
+        [{fruit :fruit drink :drink} bar sym0 foo]
+     [[[sym1 sym2] meat sym3 fruit]]
+        [[sym1 sym2] meat sym3 fruit]}
+    (vec (map-indexed convert-item let-vector)))
 
 ;TODO: at least check array length, maybe in convert-lists
 (defmacro cdestruct [let-vector & body-statements]
     (let [declared-things (convert-lists let-vector)]
-        `(let declared-things ~@body-statements))) ;the & might take care of everything we
+        `(let ~declared-things ~@body-statements))) ;the & might take care of everything we
                                         ;want in regards to body statements
 
 

@@ -2,7 +2,7 @@
   (:use clojure.test
         marshmacros.core
         [marshmacros.test :only [defntest, fntest]]
-        [marshmacros.coffee :only [cofmap, dcmap]]))
+        [marshmacros.coffee :only [cofmap cdestruct]]))
 
 (def add-two-things-anon
   (fntest [one two]
@@ -34,6 +34,12 @@
 (deftest simple-map
   (testing "A two element map works as expected"
     (is (= (cofmap y x) {:y {:for-the "lulz"} :x "lulz"}))))
+
+(deftest destructuring
+  (testing "cdestruct destructures a single-key map as expected"
+    (cdestruct [(for-the) y]
+      (is (= for-the "lulz")))))
+
 
 ;TODO: make a 'cdestruct' macro to replace "let" and allow for coffee-style
 ;destructuring of maps
