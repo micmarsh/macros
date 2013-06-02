@@ -14,7 +14,7 @@ Some clojure macro
      (+ x y z))
 ; defines 'add', and runs given test cases, throwing an exception if one doesn't pass
 ```
-### coffee-script inspired macros: cofmap and cdestruct
+### coffeescript inspired macros: cofmap and cdestruct
 In [coffeescript](http://www.coffeescript.org)  (and JavaScript in es6) you can do this:
 ```coffeescript
 food = "turkey"
